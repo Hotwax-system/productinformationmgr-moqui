@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-3.xsd">
+
+    <!-- Entity for ProductCategory -->
+    <entity entity-name="ProductCategory" package="moqui.Category">
+        <field name="productCategoryId" type="id" is-pk="true"/>
+        <field name="productCategoryTypeEnumId" type="id" />
+        <field name="categoryName" type="text-medium" />
+
+        <!-- Relationships -->
+        <relationship type="one" related="Enumeration">
+            <key-map field-name="productCategoryTypeEnumId" related="enumId" />
+        </relationship>
+
+        <!-- Seed Data -->
+        <seed-data>
+            <moqui.basic.EnumerationType description="productCategoryType"
+                enumTypeId="productCategoryType" />
+            <moqui.basic.Enumeration description="CATALOG_CATEGORY"
+                enumId="CATALOG_CATEGORY" enumTypeId="productCategoryType"/>
+            <moqui.basic.Enumeration description="CROSS_SELL"
+                enumId="CROSS_SELL" enumTypeId="productCategoryType"/>
+            <moqui.basic.Enumeration description="Material"
+                enumId="Material" enumTypeId="productCategoryType"/>
+        </seed-data>
+    </entity>
+
+
+    <!-- Entity for the Product Category Member -->
+    <entity entity-name="ProductCategoryMember" package="moqui.Category">
+        <field name="productId" type="id" is-pk="true"/>
+        <field name="productcategoryId" type="id" is-pk="true" />
+        <field name="fromDate" type="date" is-pk="true"/>
+
+        <!-- relationships -->
+        <relationship type="one" related="moqui.Product.Product">
+            <key-map field-name="productId" related="productId"/>
+        </relationship>
+        <relationship type="one" related="moqui.Category.ProductCategory">
+            <key-map field-name="productcategoryId" related="productCategoryId"/>
+        </relationship>
+
+    </entity>
+
+</entities>
