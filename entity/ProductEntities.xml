@@ -63,8 +63,8 @@
 
     <!-- Entity for the ProductPrice -->
     <entity entity-name="ProductPrice" package="moqui.Product">
-        <field name="productId" type="id" />
-        <field name="productPriceId" type="id" />
+        <field name="productId" type="id"/>
+        <field name="productPriceId" type="id" is-pk="true" />
         <field name="priceTypeEnumId" type="id" />
         <field name="price" type="number-decimal" />
 
@@ -125,7 +125,7 @@
             <key-map field-name="productId" related="productId"/>
         </relationship>
 
-        <relationship type="one" related="Enumeration">
+        <relationship type="one" title="ProductAssocType" related="Enumeration">
             <key-map field-name="productAssocTypeEnumId" related="enumId"/>
         </relationship>
 

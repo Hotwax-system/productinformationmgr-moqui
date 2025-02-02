@@ -10,14 +10,14 @@
         <field name="categoryName" type="text-medium" />
 
         <!-- Relationships -->
-        <relationship type="one" related="Enumeration">
+        <relationship type="one" title="ProductCategoryType" related="Enumeration">
             <key-map field-name="productCategoryTypeEnumId" related="enumId" />
         </relationship>
 
         <!-- Seed Data -->
         <seed-data>
             <moqui.basic.EnumerationType description="productCategoryType"
-                enumTypeId="productCategoryType" />
+                enumTypeId="ProductCategoryType" />
             <moqui.basic.Enumeration description="CATALOG_CATEGORY"
                 enumId="CATALOG_CATEGORY" enumTypeId="productCategoryType"/>
             <moqui.basic.Enumeration description="CROSS_SELL"

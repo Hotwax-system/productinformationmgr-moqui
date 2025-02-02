@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" require-authentication="anonymous-all">
+
+    <!-- Transition Start -->
+    <!-- transition for the creation of party -->
+    <transition name="CreateProductItem">
+        <service-call name="create#moqui.Product.Product"/>
+        <default-response url="."/>
+    </transition>
+
+    <!-- Transition for delete Product -->
+    <transition name="DeleteProduct">
+        <service-call name="ProductService.delete#Product" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Update Product -->
+    <transition name="UpdateProduct">
+        <service-call name="update#moqui.Product.Product" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Find Product -->
+    <transition name="FindProduct">
+        <service-call name="ProductService.fetch#Product" web-send-json-response="true" />
+        <actions>
+        <message>${productlist}</message>
+        <!-- <set field="productlist" from="response"/> -->
+        </actions>
+        <default-response url="." />    
+        
+    </transition>
+
+
+
+    <!-- Trasition fot the Create ProductContent -->
+    <transition name="createProductContent">
+        <service-call name="create#moqui.Product.ProductContent" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Trasition fot the Update ProductContent -->
+    <transition name="updateProductContent">
+        <service-call name="update#moqui.Product.ProductContent" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Delete ProductContent -->
+    <transition name="deleteProductContent">
+        <service-call name="delete#moqui.Product.ProductContent" />
+        <default-response></default-response>
+    </transition>
+
+    <!-- Transition for the Create Product Price -->
+    <transition name="createProductPrice">
+        <service-call name="create#moqui.Product.ProductPrice" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Create Product Price -->
+    <transition name="deleteProductPrice">
+        <service-call name="delete#moqui.Product.ProductPrice" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Create Product Price -->
+    <transition name="updateProductPrice">
+        <service-call name="update#moqui.Product.ProductPrice" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Creation ProductDimension -->
+    <transition name="createProductDimension">
+        <service-call name="create#moqui.Product.ProductDimension" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the update ProductDimension -->
+    <transition name="deleteProductDimension">
+        <service-call name="delete#moqui.Product.ProductDimension" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Delete ProductDimension -->
+    <transition name="updateProductDimension">
+        <service-call name="update#moqui.Product.ProductDimension" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Creation ProductAssoc -->
+    <transition name="createProductAssoc">
+        <service-call name="create#moqui.Product.ProductAssoc" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the update ProductAssoc -->
+    <transition name="deleteProductAssoc">
+        <service-call name="delete#moqui.Product.ProductAssoc" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Creation ProductFeature -->
+    <transition name="createProductFeature">
+        <service-call name="create#moqui.Feature.ProductFeature" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the delete ProductFeature -->
+    <transition name="deleteProductFeature">
+        <service-call name="delete#moqui.Feature.ProductFeature" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the update ProductFeature -->
+    <transition name="updateProductFeature">
+        <service-call name="update#moqui.Feature.ProductFeature" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the delete ProductFeatureAppl -->
+    <transition name="deleteProductFeatureAppl">
+        <service-call name="delete#moqui.Feature.ProductFeatureAppl" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the create ProductFeature -->
+    <transition name="createProductFeatureAppl">
+        <service-call name="create#moqui.Feature.ProductFeatureAppl" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the delete ProductCategory -->
+    <transition name="deleteProductFeature">
+        <service-call name="delete#moqui.Category.ProductCategory" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the update ProductFeature -->
+    <transition name="updateProductFeature">
+        <service-call name="update#moqui.Category.ProductCategory" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Creation ProductCategory -->
+    <transition name="createProductCategory">
+        <service-call name="create#moqui.Category.ProductCategory" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the update ProductCategory -->
+    <transition name="updateProductCategory">
+        <service-call name="update#moqui.Category.ProductCategory" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Delete ProductCategory -->
+    <transition name="deleteProductCategory">
+        <service-call name="delete#moqui.Category.ProductCategory" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the update ProductCategoryMember -->
+    <transition name="createProductCategoryMember">
+        <service-call name="create#moqui.Category.ProductCategoryMember" />
+        <default-response url="." />
+    </transition>
+
+    <!-- Transition for the Delete ProductCategoryMember -->
+    <transition name="deleteProductCategoryMember">
+        <service-call name="delete#moqui.Category.ProductCategoryMember" />
+        <default-response url="." />
+    </transition>
+
+
+    <widgets>
+        <container-box>
+            <box-header>
+                <label text="Product"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- For the creation of postalcode -->
+                <container-dialog id="CreateProductcontainer" button-text="Create Product">
+                    <form-single name="CreateProduct" transition="CreateProductItem">
+                        <auto-fields-entity entity-name="moqui.Product.Product" field-type="edit"/>
+                        <field name="submitButton">
+                            <default-field title="Create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- container for deleting the Product -->
+                <container-dialog id="DeleteProductContainer" button-text="Delete Product">
+                    <form-single name="DeleteProductForm" transition="DeleteProduct">
+                        <field name="productId">
+                            <default-field>
+                                <text-line/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Container for the Update the Product -->
+                <container-dialog id="UpdateProduct" button-text="Update Product">
+                    <form-single name="UpdateProductContainer" transition="UpdateProduct">
+                        <auto-fields-entity entity-name="moqui.Product.Product" field-type="edit" />
+                        <field name="submitbutton">
+                            <default-field title="Update">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Find Product -->
+                <container-dialog id="FindProductContainer" button-text="GET Product">
+                    <form-single name="FindProductfrom" transition="FindProduct">
+                        <field name="productId">
+                            <default-field>
+                                <text-line/>
+                            </default-field>
+                        </field>
+                        <field name="submitbutton">
+                            <default-field title="GET">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+        <!-- Operation for the ProductContent -->
+        <container-box>
+            <box-header>
+                <label text="ProductContent"/>
+            </box-header>
+            <box-body-nopad>
+
+                <!-- Create ProductContent -->
+                <container-dialog id="ProductContentcontainer" button-text="Create productContent">
+                    <form-single name="CreateProductContentForm" transition="createProductContent">
+                        <auto-fields-entity entity-name="moqui.Product.ProductContent" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field>
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Update ProductContent -->
+                <container-dialog id="UpdateProductContentcontainer" button-text="Update Productcontent">
+                    <form-single name="UpdateProductContentForm" transition="updateProductContent">
+                        <auto-fields-entity entity-name="moqui.Product.ProductContent" field-type="edit" />
+                        <field name="submitButtom">
+                            <default-field>
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete ProductContent -->
+                <container-dialog id="DeleteProductContentContainer" button-text="Delete ProductContent">
+                    <form-single name="DeleteProductContentform" transition="deleteProductContent">
+                        <field name="productContentId">
+                            <default-field title="productContentId">
+                                <text-line></text-line>
+                            </default-field>
+                        </field>
+                        <field name="submitButtom">
+                            <default-field title="Delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+        <!-- Operation for the Prduct Price -->
+        <container-box>
+            <box-header>
+                <label text="Product Price"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- Create Product Price -->
+                <container-dialog id="CreateProductPriceContainer" button-text="Create ProductPrice">
+                    <form-single name="CreateProdcutPriceContainerform" transition="createProductPrice">
+                        <auto-fields-entity entity-name="moqui.Product.ProductPrice" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete Product Price -->
+                <container-dialog id="DeleteProductPriceContainer" button-text="Delete ProductPrice">
+                    <form-single name="DeleteProdcutPriceContainerform" transition="deleteProductPrice">
+                        <field name="productPriceId">
+                            <default-field title="productPriceId">
+                                <text-line></text-line>
+                            </default-field>
+                        </field>
+                        <field name="submitButtom">
+                            <default-field title="Delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Update Product Price -->
+                <container-dialog id="UpdateProductPriceContainer" button-text="Update ProductPrice">
+                    <form-single name="UpdateProdcutPriceContainerform" transition="updateProductPrice">
+                        <auto-fields-entity entity-name="moqui.Product.ProductPrice" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Update">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+        <!-- Operation for the createProductDimension -->
+        <container-box>
+            <box-header>
+                <label text="createProductDimension"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- Create createProductDimension -->
+                <container-dialog id="CreateProductDimensioncontainer" button-text="Create ProductDimension">
+                    <form-single name="CreatecreateProductDimensionform" transition="createProductDimension">
+                        <auto-fields-entity entity-name="moqui.Product.ProductDimension" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Update ProductDimension -->
+                <container-dialog id="UpdateProductDimensioncontainer" button-text="Update ProductDimension">
+                    <form-single name="UpdateProductDimensionform" transition="updateProductDimension">
+                        <auto-fields-entity entity-name="moqui.Product.ProductDimension" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Update">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete ProductDimension -->
+                <container-dialog id="DeleteProductDimensioncontainer" button-text="Delete ProductDimension">
+                    <form-single name="DeleteroductDimensionform" transition="deleteProductDimension">
+                        <field name="productId">
+                            <default-field title="productId">
+                                <text-line />
+                            </default-field>
+                        </field>
+                        <field name="dimensionTypeEnumId">
+                            <default-field title="dimensionTypeEnumId">
+                                <text-line />
+                            </default-field>
+                        </field>
+                        <field name="submitButtom">
+                            <default-field title="delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+
+        <!-- Operation for the ProductAssoc -->
+        <container-box>
+            <box-header>
+                <label text="createProductAssoc"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- Create createProductDimension -->
+                <container-dialog id="CreateProductAssoccontainer" button-text="Create ProductAssoc">
+                    <form-single name="CreatecreateProductAssocform" transition="createProductAssoc">
+                        <auto-fields-entity entity-name="moqui.Product.ProductAssoc" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete ProductAssoc -->
+                <container-dialog id="DeleteProductAssoccontainer" button-text="Delete ProductAssoc">
+                    <form-single name="DeleteProductAssocform" transition="deleteProductAssoc">
+                        <auto-fields-entity entity-name="moqui.Product.ProductAssoc" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+        <!-- Operation for the product feature -->
+        <container-box>
+            <box-header>
+                <label text="Product Feature"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- Create Product Feature -->
+                <container-dialog id="CreateProductFeatureContainer" button-text="Create ProductFeature">
+                    <form-single name="CreateProdcutFeatureContainerform" transition="createProductFeature">
+                        <auto-fields-entity entity-name="moqui.Feature.ProductFeature" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete Product Feature -->
+                <container-dialog id="DeleteProductFeatureContainer" button-text="Delete ProductFeature">
+                    <form-single name="DeleteProdcutFeatureContainerform" transition="deleteProductFeature">
+                        <field name="productFeatureId">
+                            <default-field title="productFeatureId">
+                                <text-line></text-line>
+                            </default-field>
+                        </field>
+                        <field name="submitButtom">
+                            <default-field title="Delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Update Product Feature -->
+                <container-dialog id="UpdateProductFeatureContainer" button-text="Update ProductFeature">
+                    <form-single name="UpdateProdcutFeatureContainerform" transition="updateProductFeature">
+                        <auto-fields-entity entity-name="moqui.Feature.ProductFeature" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Update">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+        <!-- Operation for the ProductFeatureAppl  -->
+        <container-box>
+            <box-header>
+                <label text="Product Feature"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- Create ProductFeatureAppl -->
+                <container-dialog id="CreateProductFeatureApplContainer" button-text="Create ProductFeatureAppl">
+                    <form-single name="CreateProductFeatureApplContainerform" transition="createProductFeatureAppl">
+                        <auto-fields-entity entity-name="moqui.Feature.ProductFeatureAppl" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete ProductFeatureAppl -->
+                <container-dialog id="DeleteProductFeatureApplContainer" button-text="Delete ProductFeatureAppl">
+                    <form-single name="DeleteProductFeatureApplform" transition="deleteProductFeatureAppl">
+                        <auto-fields-entity entity-name="moqui.Feature.ProductFeatureAppl" field-type="edit" />
+                        <field name="submitButtom">
+                            <default-field title="Delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+        <!-- Operation for the product Category -->
+        <container-box>
+            <box-header>
+                <label text="Product Category"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- Create Product Category -->
+                <container-dialog id="CreateProductCategoryContainer" button-text="Create ProductCategory">
+                    <form-single name="CreateProdcutCategoryContainerform" transition="createProductCategory">
+                        <auto-fields-entity entity-name="moqui.Category.ProductCategory" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete Product Category -->
+                <container-dialog id="DeleteProductCategoryContainer" button-text="Delete ProductCategoryFeature">
+                    <form-single name="DeleteProdcutCategoryform" transition="deleteProductCategory">
+                        <field name="productCategoryId">
+                            <default-field title="productCategoryId">
+                                <text-line></text-line>
+                            </default-field>
+                        </field>
+                        <field name="submitButtom">
+                            <default-field title="Delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Update Product Category -->
+                <container-dialog id="UpdateProductCategoryContainer" button-text="Update ProductCategory">
+                    <form-single name="UpdateProdcutCategoryform" transition="updateProductCategory">
+                        <auto-fields-entity entity-name="moqui.Category.ProductCategory" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Update">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+
+        <!-- Operation for the ProductCategoryMember  -->
+        <container-box>
+            <box-header>
+                <label text="Product Category Member"/>
+            </box-header>
+            <box-body-nopad>
+                <!-- Create ProductCategoryMember -->
+                <container-dialog id="CreateProductCategoryMemberContainer" button-text="Create ProductCategoryMember">
+                    <form-single name="CreateProductCategoryMemberform" transition="createProductCategoryMember">
+                        <auto-fields-entity entity-name="moqui.Category.ProductCategoryMember" field-type="edit"/>
+                        <field name="submitButtom">
+                            <default-field title="Create">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+
+                <!-- Delete ProductCategoryMember -->
+                <container-dialog id="DeleteProductCategoryMemberContainer" button-text="Delete ProductCategoryMember">
+                    <form-single name="DeleteProductCategoryMemberform" transition="deleteProductCategoryMember">
+                        <auto-fields-entity entity-name="moqui.Category.ProductCategoryMember" field-type="edit" />
+                        <field name="submitButtom">
+                            <default-field title="Delete">
+                                <submit/>
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </box-body-nopad>
+        </container-box>
+    </widgets>
+</screen>

@@ -33,7 +33,7 @@
         <field name="productId" type="id" is-pk="true" />
         <field name="productFeatureId" type="id" is-pk="true"/>
         <field name="fromDate" type="date" is-pk="true" />
-        <field name="applTypeEnumId" type="id" />
+        <field name="applTypeEnumId" type="text-medium" />
 
         <!-- Relationships -->
         <relationship type="one" related="moqui.Product.Product">
